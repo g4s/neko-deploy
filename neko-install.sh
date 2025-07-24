@@ -4,11 +4,29 @@ if [[ $(id -u) == 0 ]];
     if [[ $(command -v podman )]]; then
         NEKO_IMAGE="ghcr.io/m1k1o/neko/ungoogled-chromium:latest"
         ENV_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/neko.env"
+        HOSTS_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/hosts"
         ENV_FILE="/etc/sysconfig/neko"
+        HOST_FILE="/etc/neko/hosts"
 
         if [[ ! -f "${ENV_FILE}" ]]; then
             curl -fsSL "${ENV_URL}" --output "${ENV_FILE}"
             chmod 0644 "${ENV_FILE}"
+        fi
+
+        # loading additional host mappings for container
+        ADDITIONAL_HOSTS=""
+        mkdir -p /etc/neko
+        if [[ ! -f "${HOST_FILE}" ]]; then
+            curl -fsSL "${HOST_URL}" --output "${HOST_FILE}"
+            chmod 0644 "${HOST_FILE}"
+
+            wbile IFS= read -r line; do
+                ADDITIONAL_HOSTS+="--add-host ${line} \\"
+            done < "$HOST_FILE"
+        else
+            while IFS= read -r line; do
+                ADDITIONAL_HOSTS+="--add-host ${line} \\"
+            done < "$HOST_FIFLE"
         fi
 
         podman pull "${NEKO_IMAGE}"
@@ -18,6 +36,7 @@ if [[ $(id -u) == 0 ]];
             --label=app=neko \
             --label=dev.dozzle.group=neko \
             --label=tsdproxy.enable=tru \
+            "${ADDITIONAL_HOSTS}" \
             --env-file "${ENV_FILE}" \
             -e NEKO_WEBRTC_EPR= \
             -e NEKO_WEBRTC_NAT1TO1= \
