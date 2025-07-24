@@ -6,18 +6,20 @@ if [[ $(id -u) == 0 ]];
         ENV_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/neko.env"
         HOSTS_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/hosts"
         LABELS_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/labels"
+        POLICIES_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/policies.json"
         ENV_FILE="/etc/sysconfig/neko"
         HOST_FILE="/etc/neko/hosts"
         LABEL_FILE="/etc/neko/labels"
+        POLICIES_FILE="/etc/neko/policies.json"
 
         if [[ ! -f "${ENV_FILE}" ]]; then
             curl -fsSL "${ENV_URL}" --output "${ENV_FILE}"
             chmod 0644 "${ENV_FILE}"
         fi
 
-        # ensure label file is present on system
         mkdir -p /etc/neko
         curl -fsSL "${LABELS_URL}" --output "${LABEL_FILE}"
+        curl -fsSL "${POLICIES_FILE}" --output "${POLICIES_FILES}"
 
         # loading additional host mappings for container
         ADDITIONAL_HOSTS=""
