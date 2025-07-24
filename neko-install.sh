@@ -46,6 +46,7 @@ if [[ $(id -u) == 0 ]];
             --env-file "${ENV_FILE}" \
             -e NEKO_WEBRTC_EPR= \
             -e NEKO_WEBRTC_NAT1TO1= \
+            -v "${POLICIES_FILE}":/etc/chromium/policies/managed/policies.json:Z \
             --name neko \
             "${NEKO_IMAGE}"
     else
