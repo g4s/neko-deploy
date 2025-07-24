@@ -3,6 +3,7 @@
 if [[ $(id -u) == 0 ]];
     if [[ $(command -v podman )]]; then
         NEKO_IMAGE="ghcr.io/m1k1o/neko/ungoogled-chromium:latest"
+        ENV_FILE="/etc/sysconfig/neko"
 
         podman pull "${NEKO_IMAGE}"
         podman run --replace --privileged \
