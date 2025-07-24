@@ -3,7 +3,13 @@
 if [[ $(id -u) == 0 ]];
     if [[ $(command -v podman )]]; then
         NEKO_IMAGE="ghcr.io/m1k1o/neko/ungoogled-chromium:latest"
+        ENV_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/neko.env"
         ENV_FILE="/etc/sysconfig/neko"
+
+        if [[ ! -f "${ENV_FILE}" ]]; then
+            curl -fsSL "${ENV_URL}" --output "${ENV_FILE}"
+            chmod 0644 "${ENV_FILE}"
+        fi
 
         podman pull "${NEKO_IMAGE}"
         podman run --replace --privileged -d \
