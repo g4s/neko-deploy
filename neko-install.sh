@@ -15,9 +15,11 @@ if [[ $(id -u) == 0 ]];
             chmod 0644 "${ENV_FILE}"
         fi
 
+        mkdir -p /etc/neko
+        curl -fsSL "${LABELS_URL}" --output "${LABEL_FILE}"
+
         # loading additional host mappings for container
         ADDITIONAL_HOSTS=""
-        mkdir -p /etc/neko
         if [[ ! -f "${HOST_FILE}" ]]; then
             curl -fsSL "${HOST_URL}" --output "${HOST_FILE}"
             chmod 0644 "${HOST_FILE}"
