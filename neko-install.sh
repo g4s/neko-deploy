@@ -37,9 +37,6 @@ if [[ $(id -u) == 0 ]];
             --snm-size=2g \
             --cpus=6 \
             --label-file="${LABEL_FILE}" \
-            --label=app=neko \
-            --label=dev.dozzle.group=neko \
-            --label=tsdproxy.enable=tru \
             "${ADDITIONAL_HOSTS}" \
             --env-file "${ENV_FILE}" \
             -e NEKO_WEBRTC_EPR= \
