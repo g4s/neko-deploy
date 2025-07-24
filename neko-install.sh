@@ -7,6 +7,8 @@ if [[ $(id -u) == 0 ]];
 
         podman pull "${NEKO_IMAGE}"
         podman run --replace --privileged \
+            --add-cap=SYS_ADMIN \
+            --snm-size=2g \
             --label=app=neko \
             --label=dev.dozzle.group=neko \
             --label=tsdproxy.enable=tru \
