@@ -18,7 +18,7 @@ if [[ $(id -u) == 0 ]];
             --name neko \
             "${NEKO_IMAGE}"
     else
-        "This script requires podman present on host"
+        echo "This script requires podman present on host"
     fi
 else
     echo "This script must run in privieged mode! ERROR"
