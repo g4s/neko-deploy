@@ -15,6 +15,7 @@ if [[ $(id -u) == 0 ]];
             chmod 0644 "${ENV_FILE}"
         fi
 
+        # ensure label file is present on system
         mkdir -p /etc/neko
         curl -fsSL "${LABELS_URL}" --output "${LABEL_FILE}"
 
