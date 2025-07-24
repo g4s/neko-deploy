@@ -1,0 +1,3 @@
+app=neko
+dev.dozzle.group=neko
+tsdproxy.enable=true
