@@ -5,8 +5,10 @@ if [[ $(id -u) == 0 ]];
         NEKO_IMAGE="ghcr.io/m1k1o/neko/ungoogled-chromium:latest"
         ENV_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/neko.env"
         HOSTS_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/hosts"
+        LABELS_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/labels"
         ENV_FILE="/etc/sysconfig/neko"
         HOST_FILE="/etc/neko/hosts"
+        LABEL_FILE="/etc/neko/labels"
 
         if [[ ! -f "${ENV_FILE}" ]]; then
             curl -fsSL "${ENV_URL}" --output "${ENV_FILE}"
@@ -33,6 +35,8 @@ if [[ $(id -u) == 0 ]];
         podman run --replace --privileged -d \
             --add-cap=SYS_ADMIN \
             --snm-size=2g \
+            --cpus=6 \
+            --label-file="${LABEL_FILE}" \
             --label=app=neko \
             --label=dev.dozzle.group=neko \
             --label=tsdproxy.enable=tru \
