@@ -1,6 +1,7 @@
 {
     "HomepageLocation": "https://github.com/g4s/neko-deploy",
     "HomepageIsNewTabPage": true,
+    "MetricsReportingEnabled": true,
     "ManagedBookmarks": [
         {
             "toplevel_name": "Bookmarks"
