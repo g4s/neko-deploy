@@ -1,4 +1,5 @@
 {
+    "_comment": "This file can be used with all chrome like browserd",
     "HomepageLocation": "https://github.com/g4s/neko-deploy",
     "HomepageIsNewTabPage": true,
     "MetricsReportingEnabled": true,
