@@ -3,28 +3,25 @@
 if [[ $(id -u) == 0 ]];
     if [[ $(command -v podman )]]; then
         NEKO_IMAGE="ghcr.io/m1k1o/neko/ungoogled-chromium:latest"
-        ENV_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/neko.env"
-        HOSTS_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/hosts"
-        LABELS_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/labels"
-        POLICIES_URL="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets/policies.json"
+        ASSET_BASE="https://raw.githubusercontent.com/g4s/neko-deploy/refs/heads/main/assets"
         ENV_FILE="/etc/sysconfig/neko"
         HOST_FILE="/etc/neko/hosts"
         LABEL_FILE="/etc/neko/labels"
         POLICIES_FILE="/etc/neko/policies.json"
 
         if [[ ! -f "${ENV_FILE}" ]]; then
-            curl -fsSL "${ENV_URL}" --output "${ENV_FILE}"
+            curl -fsSL "${ASSET_BASE}/neko.env" --output "${ENV_FILE}"
             chmod 0644 "${ENV_FILE}"
         fi
 
         mkdir -p /etc/neko
-        curl -fsSL "${LABELS_URL}" --output "${LABEL_FILE}"
-        curl -fsSL "${POLICIES_FILE}" --output "${POLICIES_FILES}"
+        curl -fsSL "${ASSET_BASE}/labels" --output "${LABEL_FILE}"
+        curl -fsSL "${ASSET_BASE}/plicies.json" --output "${POLICIES_FILES}"
 
         # loading additional host mappings for container
         ADDITIONAL_HOSTS=""
         if [[ ! -f "${HOST_FILE}" ]]; then
-            curl -fsSL "${HOST_URL}" --output "${HOST_FILE}"
+            curl -fsSL "${ASSET_BASE}/hosts" --output "${HOST_FILE}"
             chmod 0644 "${HOST_FILE}"
 
             wbile IFS= read -r line; do
