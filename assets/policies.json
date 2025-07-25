@@ -1,4 +1,13 @@
 {
     "HomepageLocation": "https://github.com/g4s/neko-deploy",
-    "HomepageIsNewTabPage": false
+    "HomepageIsNewTabPage": true,
+    "ManagedBookmarks": [
+        {
+            "toplevel_name": "Bookmarks"
+        },
+        {
+            "name": "Deploy ungoogled-chromium with n.eko-container",
+            "url": "https://github.com/g4s/neko-deploy"
+        }
+    ]
 }
